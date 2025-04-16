@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KMZ Photo Extractor</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1>KMZ Photo Extractor</h1>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="tools-section">
+            <div class="container">
+                <div class="tool-container">
+                    <div class="tool-info">
+                        <div class="info-card">
+                            <i class="fas fa-info-circle"></i>
+                            <p>Tools ini akan mengekstrak foto dari placemark dalam file KMZ dan menyimpannya dalam file
+                                ZIP. Nama file foto akan diambil dari nama placemark (misalnya placemark "?-117" akan
+                                menghasilkan file "?-117.jpg").</p>
+                        </div>
+                    </div>
+
+                    <div class="upload-area">
+                        <div class="file-upload" id="kmz-upload">
+                            <div class="file-upload-content">
+                                <i class="fas fa-file-archive"></i>
+                                <h3>Upload File KMZ</h3>
+                                <p>Tarik dan lepas file KMZ Anda di sini atau klik untuk memilih</p>
+                                <input type="file" id="kmz-file" accept=".kmz" hidden>
+                                <button class="btn btn-outline" id="kmz-browse-btn">Pilih File</button>
+                            </div>
+                            <div class="file-info" id="kmz-file-info" style="display: none;">
+                                <div class="file-preview">
+                                    <i class="fas fa-file-archive"></i>
+                                </div>
+                                <div class="file-details">
+                                    <h4 id="kmz-filename">filename.kmz</h4>
+                                    <p id="kmz-filesize">0 KB</p>
+                                    <div class="progress-bar">
+                                        <div class="progress" style="width: 100%;"></div>
+                                    </div>
+                                </div>
+                                <button class="btn-remove" id="kmz-remove-btn"><i class="fas fa-times"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="options-area">
+                        <h3>Opsi Ekstraksi</h3>
+                        <div class="option-items">
+                            <div class="option-item">
+                                <input type="checkbox" id="keep-structure" name="keep-structure" checked>
+                                <label for="keep-structure">Pertahankan Struktur Nama (biarkan "?-" di awal nama
+                                    file)</label>
+                            </div>
+                            <div class="option-item">
+                                <input type="checkbox" id="extract-all-images" name="extract-all-images">
+                                <label for="extract-all-images">Ekstrak Semua Gambar (termasuk yang tidak dalam
+                                    placemark "?-")</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="process-area">
+                        <button class="btn btn-primary btn-large" id="process-btn" disabled>Ekstrak Foto</button>
+                        <div class="warning-container" id="warning-container"></div>
+                    </div>
+
+                    <div class="result-area" id="result-area" style="display: none;">
+                        <div class="result-header">
+                            <h3>Hasil Ekstraksi</h3>
+                            <p>Foto dari file KMZ berhasil diekstrak dan siap untuk diunduh</p>
+                        </div>
+                        <div class="result-content">
+                            <div class="result-info">
+                                <div class="info-item">
+                                    <span class="label">Total Placemark ?-:</span>
+                                    <span class="value" id="total-placemarks">0</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="label">Total Foto Diekstrak:</span>
+                                    <span class="value" id="total-photos">0</span>
+                                </div>
+                            </div>
+                            <div class="result-action">
+                                <button class="btn btn-success" id="download-btn">
+                                    <i class="fas fa-download"></i> Download ZIP
+                                </button>
+                            </div>
+                        </div>
+                        <div class="result-logs" id="result-logs"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2025 KMZ Photo Extractor. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal for notifications -->
+    <div class="modal" id="notification-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-title">Notifikasi</h3>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <p id="modal-message"></p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" id="modal-ok-btn">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading overlay -->
+    <div class="loading-overlay" id="loading-overlay">
+        <div class="spinner"></div>
+        <p>Memproses...</p>
+    </div>
+
+    <!-- Import JSZip and other libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="js/kmzExtractor.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>
